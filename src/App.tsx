@@ -1,7 +1,15 @@
+import { Navbar } from "./componets/navbar";
+
 function App() {
   return (
     <>
-      <div>Hello World</div>
+      <div>
+        <Navbar />
+        <div className="left">
+          
+        </div>
+        <div className="right"></div>
+      </div>
     </>
   );
 }
