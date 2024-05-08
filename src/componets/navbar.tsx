@@ -1,7 +1,7 @@
 export function Navbar() {
   return (
-    <div>
-      <div>Kurbil</div>
+    <div className="shadow-md h-16 items-center flex justify-start">
+      <img className="p-2 m-2" src="public\logo.jpeg" width="80px" height="20px"></img>
     </div>
   );
 }
