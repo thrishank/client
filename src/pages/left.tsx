@@ -1,3 +1,4 @@
+import { Checkbox } from "../componets/checkbox";
 import { Input } from "../componets/input_box";
 import { Social_links } from "../componets/social";
 

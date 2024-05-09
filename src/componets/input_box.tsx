@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Score } from "./score";
+import { Checkbox } from "./checkbox";
 
 export function Input() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ export function Input() {
   const [inputType, setInputType] = useState("email");
   const [button_text, setButton_text] = useState("NEXT");
   const [score, setScore] = useState(false);
+  const [showCheckbox, setShowCheckbox] = useState(true);
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,6 +24,7 @@ export function Input() {
       setButton_text("CALUCULATE SCORE");
       setEmail("");
       setValid_address(true);
+      setShowCheckbox(false);
     }
     if (valid_address && email.length > 0) {
       setScore(true);
@@ -43,7 +46,6 @@ export function Input() {
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-
             {isEmail ? (
               <span className="absolute inset-y-0 right-0 pr-3 flex items-center">
                 <svg
@@ -116,6 +118,7 @@ export function Input() {
                 Please enter a valid email address
               </p>
             ))}
+          {showCheckbox && <Checkbox />}
         </div>
       </div>
       {score && (
