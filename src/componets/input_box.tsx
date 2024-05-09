@@ -104,7 +104,7 @@ export function Input() {
               </span>
             ) : null}
             <button
-              className="px-6 mx-4 rounded-full bg-[#D9A831] font-bold"
+              className="px-6 mx-4 rounded-full bg-[#D9A831] font-bold cursor-pointer relative z-10"
               onClick={address}
             >
               {button_text}
