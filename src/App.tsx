@@ -1,6 +1,7 @@
 import { Navbar } from "./componets/navbar";
 import { Right } from "./pages/right";
 import { LeftText } from "./pages/left";
+import { Scorebadge } from "./componets/score_badge";
 function App() {
   return (
     <>
@@ -10,6 +11,10 @@ function App() {
           <LeftText />
           <Right />
         </div>
+        <div className="flex items-center justify-center relative">
+          <Scorebadge/>
+        </div>
+
       </div>
     </>
   );
