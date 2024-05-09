@@ -1,3 +1,4 @@
+import { Checkbox } from "./checkbox";
 import { Social_links } from "./social";
 export function Scorebadge() {
     return (
@@ -18,7 +19,7 @@ export function Scorebadge() {
             </div>
             
             <button className="px-6 py-3 my-3 mx-4 rounded-full bg-[#D9A831] font-bold cursor-pointer relative z-10">DOWNLOAD BADGE</button>
-
+            <Checkbox></Checkbox>
 
         </div>
       </div>

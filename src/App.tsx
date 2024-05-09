@@ -11,9 +11,9 @@ function App() {
           <LeftText />
           <Right />
         </div>
-        <div className="flex items-center justify-center absolute top-0 w-full h-full z-50">
+        {/* <div className="flex items-center justify-center absolute top-0 w-full h-full z-50">
           <Scorebadge/>
-        </div>
+        </div> */}
 
       </div>
     </>
