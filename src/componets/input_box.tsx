@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Score } from "./score";
 import { Checkbox } from "./checkbox";
+import { BeatLoader } from "react-spinners";
+import { useScoreBadge } from "../hooks/useScoreBadge";
 
+const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
 export function Input() {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(true);
@@ -12,11 +15,86 @@ export function Input() {
   const [score, setScore] = useState(false);
   const [showCheckbox, setShowCheckbox] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
+
+  const { handleScoreBadgeClick } = useScoreBadge();
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setIsEmail(emailRegex.test(email));
   }, [email]);
+
+  const [crime_score, setCrime_score] = useState(0);
+  const [school_score, setSchool_score] = useState(0);
+  const [nsfr_score, setNsfr_score] = useState(0);
+  const [rfsr_score, setRfsr_score] = useState(0);
+  const [cap_score, setCap_score] = useState(0);
+  const [geo_data, setGeo_data] = useState({
+    geo_id: "",
+    longitude: "",
+    latitude: "",
+  });
+
+  const fetch_data = async () => {
+    try {
+      setIsLoading(true);
+      const cap_response = await fetch(
+        backend_url +
+          `/investibility/cap_score?address=${encodeURIComponent(email)}`
+      );
+      const jsonData = await cap_response.json();
+      setCap_score(jsonData.cap_score);
+      const geo_response = await fetch(
+        backend_url + `/geo_id?address=${encodeURIComponent(email)}`
+      );
+      const geo_json = await geo_response.json();
+      setGeo_data(geo_json);
+    } catch (error) {
+      alert("Error fetching data");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (geo_data.geo_id) {
+      const fetch_other_data = async () => {
+        try {
+          setIsLoading(true);
+          const crime_response = await fetch(
+            backend_url + `/investibility/crime_score?geo_id=${geo_data.geo_id}`
+          );
+          const crime_json = await crime_response.json();
+          setCrime_score(crime_json.crime_score);
+          const nsfr_response = await fetch(
+            backend_url +
+              `/investibility/nsfr_score?latitude=${geo_data.latitude}&longitude=${geo_data.longitude}`
+          );
+          const nsfr_json = await nsfr_response.json();
+          setNsfr_score(nsfr_json.n_sfr_score);
+          const rfsr_response = await fetch(
+            backend_url +
+              `/investibility/rfsr_score?latitude=${geo_data.latitude}&longitude=${geo_data.longitude}`
+          );
+          const rfsr_json = await rfsr_response.json();
+          setRfsr_score(rfsr_json.r_sfr_score);
+          const school_response = await fetch(
+            backend_url +
+              `/investibility/school_score?geo_id=${geo_data.geo_id}`
+          );
+          const school_json = await school_response.json();
+          setSchool_score(school_json.school_score);
+        } catch (error) {
+          alert("Error fetching data");
+          console.error(error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetch_other_data();
+    }
+  }, [geo_data.geo_id]);
 
   const address = () => {
     if (isEmail && isChecked) {
@@ -29,6 +107,7 @@ export function Input() {
     }
     if (valid_address && email.length > 0) {
       setScore(true);
+      fetch_data();
     }
   };
 
@@ -122,27 +201,68 @@ export function Input() {
           {showCheckbox && <Checkbox setIsChecked={setIsChecked} />}
         </div>
       </div>
-      {score && (
+      {isloading && (
+        <div className="flex justify-center mt-4">
+          <BeatLoader color="#D9A831" size={15} />{" "}
+        </div>
+      )}
+      {score && !isloading && (
         <>
           <div className="flex flex-wrap justify-start mt-4">
             <div
-              className="px-1 mb-2 mr-2 bg-[#CFFFEB] flex rounded-full"
+              className="px-1 mb-2 mr-2 bg-[#CFFFEB] flex rounded-full cursor-pointer"
               style={{ whiteSpace: "nowrap" }}
+              onClick={handleScoreBadgeClick}
             >
               <img src="/premium.svg" width="20px" height="20px" />
-              <div className="px-2 py-2 font-semibold ">Kurbil Score: 5</div>
+              <div className="px-2 py-2 font-semibold ">Kurbil Score: 5 |</div>
+              <svg
+                width="25px"
+                height="35px"
+                viewBox="-0.96 -0.96 25.92 25.92"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke="#CCCCCC"
+                  stroke-width="0.048"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M12 16L12 8"
+                    stroke="#323232"
+                    stroke-width="1.536"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>{" "}
+                  <path
+                    d="M9 13L11.913 15.913V15.913C11.961 15.961 12.039 15.961 12.087 15.913V15.913L15 13"
+                    stroke="#323232"
+                    stroke-width="1.536"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>{" "}
+                  <path
+                    d="M3 15L3 16L3 19C3 20.1046 3.89543 21 5 21L19 21C20.1046 21 21 20.1046 21 19L21 16L21 15"
+                    stroke="#323232"
+                    stroke-width="1.536"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>{" "}
+                </g>
+              </svg>
             </div>
 
-            <Score text="Crime Score: 10" color="#F5FFCF" />
-            <Score text="School Score: 5" color="#CFF1FF" />
-            <Score text="NSFR Score: 20" color="#CFD4FF" />
-            <Score text="RFSR Score: 20" color="#F8CFFF" />
-            <Score text="CAP Score: 1" color="#FFE6CF" />
-          </div>
-          <div className="font-semibold py-40">
-            <p>pdf of the batch to share on the social media</p>
-            <br />
-            <p>pop open and then download</p>
+            <Score text={`Crime Score: ${crime_score}`} color="#F5FFCF" />
+            <Score text={`School Score: ${school_score}`} color="#CFF1FF" />
+            <Score text={`NSFR Score: ${nsfr_score}`} color="#CFD4FF" />
+            <Score text={`RFSR Score: ${rfsr_score}`} color="#F8CFFF" />
+            <Score text={`CAP Score: ${cap_score}`} color="#FFE6CF" />
           </div>
         </>
       )}
