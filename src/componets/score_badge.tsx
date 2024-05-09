@@ -1,7 +1,7 @@
 import { Social_links } from "./social";
 export function Scorebadge() {
     return (
-      <div className="rounded-xl">
+      <div className="rounded-xl bg-white">
         <div className="text-center text-3xl bg-[#F9F1DE] py-3 rounded-t-xl">Kurbli Score Badge</div>
         <div className="flex flex-col justify-center items-center">
             <img src="public\scorebadgeimg.jpg" width="300px" height="257.38px" className="pt-4"></img>
