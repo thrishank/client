@@ -114,21 +114,28 @@ export function Input() {
         </button>
       </div>
       {score && (
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-4">
-          <div
-            className="px-1 bg-[#CFFFEB] flex rounded-full"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            <img src="/premium.svg" width="20px" height="20px" />
-            <div className="px-2 py-2 font-semibold ">Kurbil Score: 5</div>
-          </div>
+        <>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-4">
+            <div
+              className="px-1 bg-[#CFFFEB] flex rounded-full"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              <img src="/premium.svg" width="20px" height="20px" />
+              <div className="px-2 py-2 font-semibold ">Kurbil Score: 5</div>
+            </div>
 
-          <Score text="Crime Score: 10" color="#F5FFCF" />
-          <Score text="School Score: 5" color="#CFF1FF" />
-          <Score text="NSFR Score: 20" color="#CFD4FF" />
-          <Score text="RFSR Score: 20" color="#F8CFFF" />
-          <Score text="CAP Score: 1" color="#FFE6CF" />
-        </div>
+            <Score text="Crime Score: 10" color="#F5FFCF" />
+            <Score text="School Score: 5" color="#CFF1FF" />
+            <Score text="NSFR Score: 20" color="#CFD4FF" />
+            <Score text="RFSR Score: 20" color="#F8CFFF" />
+            <Score text="CAP Score: 1" color="#FFE6CF" />
+          </div>
+          <div className="font-semibold py-40">
+            <p>pdf of the batch to share on the social media</p>
+            <br />
+            <p>pop open and then download</p>
+          </div>
+        </>
       )}
     </div>
   );
