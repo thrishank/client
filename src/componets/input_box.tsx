@@ -34,7 +34,7 @@ export function Input() {
         <div className="flex flex-col flex-wrap relative">
           <input
             type={inputType}
-            className="bg-[#FCFAFC] border border-gray-300 text-lg rounded-full shadow px-6 font-semibold py-3 w-96 pr-12"
+            className={`bg-[#FCFAF5] border ${isEmail ? 'border-green-500' : 'border-red-500'} text-lg rounded-full shadow px-6 font-medium py-3 w-96 pr-12`}
             value={email}
             placeholder={placeholder}
             required
@@ -115,12 +115,12 @@ export function Input() {
       </div>
       {score && (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-4">
+          <div className="flex flex-wrap justify-start mt-4">
             <div
-              className="px-1 bg-[#CFFFEB] flex rounded-full"
+              className="px-1 mb-2 mr-2 bg-[#CFFFEB] flex rounded-full"
               style={{ whiteSpace: "nowrap" }}
             >
-              <img src="/premium.svg" width="20px" height="20px" />
+              <img src="/premium.svg" width="20px" height="20px"/>
               <div className="px-2 py-2 font-semibold ">Kurbil Score: 5</div>
             </div>
 
