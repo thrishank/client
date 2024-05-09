@@ -11,6 +11,7 @@ export function Input() {
   const [button_text, setButton_text] = useState("NEXT");
   const [score, setScore] = useState(false);
   const [showCheckbox, setShowCheckbox] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,7 +19,7 @@ export function Input() {
   }, [email]);
 
   const address = () => {
-    if (isEmail) {
+    if (isEmail && isChecked) {
       setPlaceholder("Start typing to select the address");
       setInputType("text");
       setButton_text("CALUCULATE SCORE");
@@ -118,7 +119,7 @@ export function Input() {
                 Please enter a valid email address
               </p>
             ))}
-          {showCheckbox && <Checkbox />}
+          {showCheckbox && <Checkbox setIsChecked={setIsChecked} />}
         </div>
       </div>
       {score && (
