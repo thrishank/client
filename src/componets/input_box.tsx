@@ -29,17 +29,18 @@ export function Input() {
   };
 
   return (
-    <div className="py-12">
-      <div className="flex flex-wrap justify-start">
+    <div className="py-10">
+      <div className="flex">
         <div className="flex flex-col flex-wrap relative">
           <input
             type={inputType}
-            className={`bg-[#FCFAF5] border ${isEmail ? 'border-green-500' : 'border-red-500'} text-lg rounded-full shadow px-6 font-medium py-3 w-96 pr-12`}
+            className={`bg-[#FCFAF5] block w-full border ${isEmail ? 'border-green-500' : 'border-red-500'} text-lg rounded-full shadow px-6 font-medium py-3 w-96 pr-12`}
             value={email}
             placeholder={placeholder}
             required
             onChange={(e) => setEmail(e.target.value)}
           />
+          
           {isEmail ? (
             <span className="absolute inset-y-0 right-0 pr-3 flex items-center">
               <svg
