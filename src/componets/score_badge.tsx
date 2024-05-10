@@ -1,8 +1,55 @@
+import { useEffect, useRef } from "react";
 import { Social_links } from "./social";
-export function Scorebadge({ handleClose }: any) {
-  const handleBadgeCloseClick = () => {
-    handleClose(); // Call the function received from props to close Scorebadge
+
+interface Props {
+  handleClose: Function;
+  score: number;
+}
+
+export function Scorebadge({ handleClose, score }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        const img = new Image();
+        img.src = "/scorebadgeimg.jpg";
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          ctx.font = "bold 48px Arial";
+          ctx.fillStyle = "black";
+          ctx.fillText(
+            score.toString(),
+            canvas.width / 2 - 15,
+            canvas.height - 60
+          );
+        };
+      }
+    }
+  }, [score]);
+
+  const handleDownloadBadge = () => {
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "score-badge.png";
+          link.click();
+          URL.revokeObjectURL(url);
+        }
+      }, "image/png");
+    }
   };
+
+  const handleBadgeCloseClick = () => {
+    handleClose();
+  };
+
   return (
     <div className="rounded-xl bg-white">
       <div className="text-center text-3xl bg-[#F9F1DE] py-3 rounded-t-xl grid grid-cols-12">
@@ -11,23 +58,21 @@ export function Scorebadge({ handleClose }: any) {
           &times;
         </button>
       </div>
-      
       <div className="flex flex-col justify-center items-center">
-        <img
-          src="/scorebadgeimg.jpg"
-          width="300px"
-          height="257.38px"
+        <canvas
+          ref={canvasRef}
+          width="300"
+          height="257.38"
           className="pt-4"
-        ></img>
-        <p className="relative bottom-28 right-[-2px] text-4xl font-semibold">
-          5
-        </p>
+        ></canvas>
         <p className="px-4 text-lg">
           Download or share your property score badge with your circle
         </p>
         <Social_links text="" />
-
-        <button className="px-6 py-3 my-3 mx-4 rounded-full bg-[#D9A831] font-bold cursor-pointer relative z-10">
+        <button
+          className="px-6 py-3 my-3 mx-4 rounded-full bg-[#D9A831] font-bold cursor-pointer relative z-10"
+          onClick={handleDownloadBadge}
+        >
           DOWNLOAD BADGE
         </button>
       </div>
