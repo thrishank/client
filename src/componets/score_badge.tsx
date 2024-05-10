@@ -8,6 +8,7 @@ interface Props {
 
 export function Scorebadge({ handleClose, score }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const socialCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -20,11 +21,8 @@ export function Scorebadge({ handleClose, score }: Props) {
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           ctx.font = "bold 48px Arial";
           ctx.fillStyle = "black";
-          ctx.fillText(
-            score.toString(),
-            canvas.width / 2 - 15,
-            canvas.height - 60
-          );
+          ctx.textAlign = "center";
+          ctx.fillText(score.toString(), canvas.width / 2, canvas.height - 60);
         };
       }
     }
@@ -60,7 +58,10 @@ export function Scorebadge({ handleClose, score }: Props) {
       </div>
       <div className="flex flex-col justify-center items-center">
         <canvas
-          ref={canvasRef}
+          ref={(node) => {
+            canvasRef.current = node;
+            socialCanvasRef.current = node;
+          }}
           width="300"
           height="257.38"
           className="pt-4"
@@ -68,7 +69,7 @@ export function Scorebadge({ handleClose, score }: Props) {
         <p className="px-4 text-lg">
           Download or share your property score badge with your circle
         </p>
-        <Social_links text="" />
+        <Social_links text="" canvasRef={socialCanvasRef} />
         <button
           className="px-6 py-3 my-3 mx-4 rounded-full bg-[#D9A831] font-bold cursor-pointer relative z-10"
           onClick={handleDownloadBadge}

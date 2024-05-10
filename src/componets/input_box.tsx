@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { Score } from "./score";
 import { Checkbox } from "./checkbox";
 import { MoonLoader } from "react-spinners";
-import { useKurbilScore } from "./kurbilScore";
 import { Suggestion } from "./suggestions";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
-export function Input({ toggleScoreBadge }: any) {
-  const { kurbilScore, setKurbilScore } = useKurbilScore();
+export function Input({ toggleScoreBadge, fn, final_score }: any) {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(true);
   const [user_address, setUser_address] = useState({
@@ -131,7 +129,7 @@ export function Input({ toggleScoreBadge }: any) {
               }&crime_rate=${crime_score}&school_rate=${school_score}&nsfr=${nsfr_score}&rsfr=${rfsr_score}&cap_rate=${cap_score}&email=${email}`
           );
           const krubil_json = await kurbil_response.json();
-          setKurbilScore(krubil_json.score);
+          fn(krubil_json.score);
         } catch (err) {
           console.error(err);
           alert("Error fetching the kurbil score");
@@ -171,7 +169,7 @@ export function Input({ toggleScoreBadge }: any) {
               />
             )}
             {valid_address && (
-              <div className="bg-[#FCFAF5]  w-96 rounded-full">
+              <div className="bg-[#FCFAF5] block border rounded-full text-lg shadow px-6 font-medium py-3 w-96 pr-12">
                 <Suggestion onClick={setUser_address} />
               </div>
             )}
@@ -267,7 +265,7 @@ export function Input({ toggleScoreBadge }: any) {
             >
               <img src="/premium.svg" width="20px" height="20px" />
               <div className="px-2 py-2 font-semibold ">
-                Kurbli Score: {kurbilScore} |
+                Kurbli Score: {final_score} |
               </div>
               <svg
                 width="25px"
