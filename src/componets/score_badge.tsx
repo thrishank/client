@@ -5,15 +5,13 @@ export function Scorebadge({ handleClose }: any) {
   };
   return (
     <div className="rounded-xl bg-white">
-      <div className="text-center text-3xl bg-[#F9F1DE] py-3 rounded-t-xl">
-        Kurbli Score Badge
+      <div className="text-center text-3xl bg-[#F9F1DE] py-3 rounded-t-xl grid grid-cols-12">
+        <div className="col-span-11 text-center pl-10">Kurbli Score Badge</div>
+        <button className="text-2xl" onClick={handleBadgeCloseClick}>
+          &times;
+        </button>
       </div>
-      <button
-        className="absolute top-2 right-2 text-xl cursor-pointer"
-        onClick={handleBadgeCloseClick}
-      >
-        &times;
-      </button>
+      
       <div className="flex flex-col justify-center items-center">
         <img
           src="/scorebadgeimg.jpg"
