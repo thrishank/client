@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Social_links } from "./social";
+import { Social_links } from "../componets/social";
 
 interface Props {
   handleClose: Function;
