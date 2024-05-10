@@ -3,20 +3,30 @@ import { Right } from "./pages/right";
 import { LeftText } from "./pages/left";
 import { Scorebadge } from "./componets/score_badge";
 import { useScoreBadge } from "./hooks/useScoreBadge";
+import { useState } from "react";
 
 function App() {
+  // const { showScoreBadge, handleCloseBadge } = useScoreBadge();
   const { showScoreBadge, handleCloseBadge } = useScoreBadge();
+  const [scoreBadgeVisible, setScoreBadgeVisible] = useState(false);
+
+  const toggleScoreBadge = () => {
+    setScoreBadgeVisible(!scoreBadgeVisible);
+  };
+  const hideScoreBadge = () => {
+    setScoreBadgeVisible(false);
+  };
   return (
     <>
       <div className="">
         <Navbar />
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <LeftText />
+          <LeftText toggleScoreBadge={toggleScoreBadge}/>
           <Right />
         </div>
-        {showScoreBadge && (
+        {scoreBadgeVisible && (
           <div className="flex items-center justify-center absolute top-0 w-full h-full z-50">
-            <Scorebadge fn={handleCloseBadge} />
+            <Scorebadge handleClose={hideScoreBadge} />
           </div>
         )}
       </div>

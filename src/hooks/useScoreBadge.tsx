@@ -1,6 +1,5 @@
 // useScoreBadge.tsx
 import { useState } from "react";
-
 interface ScoreBadgeState {
   showScoreBadge: boolean;
   handleScoreBadgeClick: () => void;

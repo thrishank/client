@@ -5,7 +5,7 @@ import { BeatLoader } from "react-spinners";
 import { useScoreBadge } from "../hooks/useScoreBadge";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
-export function Input() {
+export function Input({ toggleScoreBadge }) {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(true);
   const [valid_address, setValid_address] = useState(false);
@@ -17,7 +17,10 @@ export function Input() {
   const [isChecked, setIsChecked] = useState(false);
   const [isloading, setIsLoading] = useState(false);
 
-  const { handleScoreBadgeClick } = useScoreBadge();
+  // const { handleScoreBadgeClick } = useScoreBadge();
+  const handleScoreBadgeClick = () => {
+    toggleScoreBadge(); // Call the function received from props to toggle Scorebadge visibility
+  };
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
