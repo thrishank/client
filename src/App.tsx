@@ -16,7 +16,7 @@ function App() {
   };
   return (
     <>
-      <div className="">
+      <div className={scoreBadgeVisible ? "bg-gray-300" : ""}>
         <Navbar />
         <div className="grid grid-cols-1 md:grid-cols-2">
           <LeftText toggleScoreBadge={toggleScoreBadge}/>
