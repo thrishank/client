@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Score } from "./score";
 import { Checkbox } from "./checkbox";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, MoonLoader } from "react-spinners";
 import { useKurbilScore } from "./kurbilScore";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
@@ -48,7 +48,7 @@ export function Input({ toggleScoreBadge }: any) {
           `/investibility/cap_score?address=${encodeURIComponent(email)}`
       );
       const jsonData = await cap_response.json();
-      setCap_score(jsonData.cap_score);
+      setCap_score(jsonData.cap_score.error ? 0 : jsonData.cap_score);
       const geo_response = await fetch(
         backend_url + `/geo_id?address=${encodeURIComponent(email)}`
       );
@@ -233,8 +233,10 @@ export function Input({ toggleScoreBadge }: any) {
         </div>
       </div>
       {isloading && (
-        <div className="flex justify-center mt-4">
-          <BeatLoader color="#D9A831" size={15} />{" "}
+        <div className="flex justify-center mt-4 flex-col items-center">
+          <MoonLoader color="#D9A831" size={200} />
+          {""}
+          <p>Caluculating your kurbli score...</p>
         </div>
       )}
       {score && !isloading && (
@@ -247,7 +249,7 @@ export function Input({ toggleScoreBadge }: any) {
             >
               <img src="/premium.svg" width="20px" height="20px" />
               <div className="px-2 py-2 font-semibold ">
-                Kurbil Score: {kurbilScore} |
+                Kurbli Score: {kurbilScore} |
               </div>
               <svg
                 width="25px"
