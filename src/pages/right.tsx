@@ -1,6 +1,6 @@
 export function Right() {
   return (
-    <div className="bg-black h-full">
+    <div className="bg-black">
       <div>
         <img className="" src="/home.jpeg" height="697px" width="1200px" />
       </div>
