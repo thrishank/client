@@ -3,11 +3,9 @@ import { ReactBatchAutocomplete } from "@batchservice/react-batch-autocomplete-l
 export function Suggestion({ onClick }: any) {
 
   const recentSearch = [
-    { name: "8300 Apple" },
-    { name: "Apple St" },
-    { name: "89001 Alamo" },
-    { name: "58651 Rhame" },
-    // List of suggestions to be displayed before any input is provided in search input box.
+    { name: "123 Dora Ln, Byron, GA 31008" },
+    { name: "123 Manor Way, Hendersonville, TN 37075" },
+    { name: "434 Bourbon Ave, Lexington, KY 40508" },
   ];
 
   const handleError = (e: any) => {
