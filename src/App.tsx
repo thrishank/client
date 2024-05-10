@@ -2,12 +2,10 @@ import { Navbar } from "./componets/navbar";
 import { Right } from "./pages/right";
 import { LeftText } from "./pages/left";
 import { Scorebadge } from "./componets/score_badge";
-import { useScoreBadge } from "./hooks/useScoreBadge";
 import { useState } from "react";
 
 function App() {
-  // const { showScoreBadge, handleCloseBadge } = useScoreBadge();
-  const { showScoreBadge, handleCloseBadge } = useScoreBadge();
+ 
   const [scoreBadgeVisible, setScoreBadgeVisible] = useState(false);
 
   const toggleScoreBadge = () => {
