@@ -68,7 +68,7 @@ export function Input({ toggleScoreBadge, fn, final_score }: any) {
       const geo_json = await geo_response.json();
       setGeo_data(geo_json);
     } catch (error) {
-      alert("Error fetching data");
+      alert("Cap Score not foun");
       console.error(error);
     } finally {
       setIsLoading(false);
