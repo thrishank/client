@@ -1,24 +1,23 @@
 import { ReactBatchAutocomplete } from "@batchservice/react-batch-autocomplete-lib";
 
 export function Suggestion({ onClick }: any) {
-
   const recentSearch = [
-    { name: "123 Dora Ln, Byron, GA 31008" },
-    { name: "123 Manor Way, Hendersonville, TN 37075" },
-    { name: "434 Bourbon Ave, Lexington, KY 40508" },
+    // { name: "123 Dora Ln, Byron, GA 31008" },
+    // { name: "123 Manor Way, Hendersonville, TN 37075" },
+    // { name: "434 Bourbon Ave, Lexington, KY 40508" },
+    {},
   ];
 
   const handleError = (e: any) => {
-    // Handle error as you want
     console.log("Error while searching: ", e);
   };
 
-  const suggestionList = (data: any) => {
-    // Suggestion list data
-    console.log("Suggetion List: ", data);
+  const onSelect = (data: any) => {
+    onClick(data);
   };
 
-  const onSelect = (data: any) => {
+  const suggestionList = (data: any) => {
+    console.log(data);
     onClick(data);
   };
 
