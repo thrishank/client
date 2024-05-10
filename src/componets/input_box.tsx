@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { Score } from "./score";
 import { Checkbox } from "./checkbox";
 import { BeatLoader } from "react-spinners";
+import { useKurbilScore } from "./kurbilScore";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
+var final_Email = ""; // To store the email data
 export function Input({ toggleScoreBadge }: any) {
+  const { kurbilScore, setKurbilScore } = useKurbilScore();
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(true);
   const [valid_address, setValid_address] = useState(false);
@@ -16,9 +19,8 @@ export function Input({ toggleScoreBadge }: any) {
   const [isChecked, setIsChecked] = useState(false);
   const [isloading, setIsLoading] = useState(false);
 
-  // const { handleScoreBadgeClick } = useScoreBadge();
   const handleScoreBadgeClick = () => {
-    toggleScoreBadge(); // Call the function received from props to toggle Scorebadge visibility
+    toggleScoreBadge();
   };
 
   useEffect(() => {
@@ -31,6 +33,7 @@ export function Input({ toggleScoreBadge }: any) {
   const [nsfr_score, setNsfr_score] = useState(0);
   const [rfsr_score, setRfsr_score] = useState(0);
   const [cap_score, setCap_score] = useState(0);
+
   const [geo_data, setGeo_data] = useState({
     geo_id: "",
     longitude: "",
@@ -98,11 +101,37 @@ export function Input({ toggleScoreBadge }: any) {
     }
   }, [geo_data.geo_id]);
 
+  useEffect(() => {
+    if (nsfr_score && rfsr_score && crime_score && school_score) {
+      const fetch_kurbil_score = async () => {
+        try {
+          const kurbil_response = await fetch(
+            backend_url +
+              `/investibility/?address=${encodeURIComponent(email)}&city=${
+                email.split(",")[1]
+              }&state=${email.split(",")[2].split(" ")[1]}&zip=${
+                email.split(",")[2].split(" ")[2]
+              }&latitude=${geo_data.latitude}&longitude=${
+                geo_data.longitude
+              }&crime_rate=${crime_score}&school_rate=${school_score}&nsfr=${nsfr_score}&rsfr=${rfsr_score}&cap_rate=${cap_score}&email=${final_Email}`
+          );
+          const krubil_json = await kurbil_response.json();
+          setKurbilScore(krubil_json.score);
+        } catch (err) {
+          console.error(err);
+          alert("Error fetching the kurbil score");
+        }
+      };
+      fetch_kurbil_score();
+    }
+  }, [nsfr_score, rfsr_score, crime_score, school_score]);
+
   const address = () => {
     if (isEmail && isChecked) {
       setPlaceholder("Start typing to select the address");
       setInputType("text");
       setButton_text("CALUCULATE SCORE");
+      final_Email = email;
       setEmail("");
       setValid_address(true);
       setShowCheckbox(false);
@@ -217,7 +246,9 @@ export function Input({ toggleScoreBadge }: any) {
               onClick={handleScoreBadgeClick}
             >
               <img src="/premium.svg" width="20px" height="20px" />
-              <div className="px-2 py-2 font-semibold ">Kurbil Score: 5 |</div>
+              <div className="px-2 py-2 font-semibold ">
+                Kurbil Score: {kurbilScore} |
+              </div>
               <svg
                 width="25px"
                 height="35px"
