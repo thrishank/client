@@ -1,7 +1,6 @@
 import { Input } from "../componets/input_box";
-import { Social_links } from "../componets/social";
 
-export function LeftText({ toggleScoreBadge }: any) {
+export function LeftText({ toggleScoreBadge, setKurbilScore, kurbilScore }: any) {
   return (
     <div className="flex flex-col items-start justify-start p-4 m-4 sm:p-10 sm:m-10 overflow-hidden">
       <div className="font-semibold text-4xl leading-[50px]">
@@ -11,8 +10,8 @@ export function LeftText({ toggleScoreBadge }: any) {
       <div className="text-gray-600 py-4 text-md">
         Get Started By entering your email address below.
       </div>
-      <Social_links text={"Follow Us"} />
-      <Input toggleScoreBadge={toggleScoreBadge}/>
+      
+      <Input toggleScoreBadge={toggleScoreBadge} fn={setKurbilScore} final_score={kurbilScore}/>
     </div>
   );
 }
