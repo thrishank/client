@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Score } from "./score";
 import { Checkbox } from "./checkbox";
-import { BeatLoader, MoonLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
 import { useKurbilScore } from "./kurbilScore";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
