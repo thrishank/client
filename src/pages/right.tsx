@@ -1,8 +1,8 @@
 export function Right() {
   return (
-    <div className="bg-black">
-      <div>
-        <img className="" src="/home.jpeg" height="697px" width="1200px" />
+    <div className="bg-black text-sm overflow-hidden">
+      <div className="flex items-center justify-center p-2">
+        <img className="" src="/home.jpeg" height="" width="300px" />
       </div>
       <div className="text-2xl font-semibold text-gray-300 m-2 p-4">
         What is Krubli's real-time scoring system?
@@ -15,7 +15,7 @@ export function Right() {
       <div className="text-2xl font-semibold text-gray-300 m-2 p-4">
         What we provide
       </div>
-      <div className="flex p-2 m-2">
+      <div className="flex pt-2 mt-2">
         <div className="flex flex-col text-gray-300 p-1 m-1">
           <img src="/threelines.svg" width="56px" height="56px" />
           <div className="m-1">Listing your home for sale</div>
