@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Score } from "./score";
+import { Score } from "../componets/score";
 import { Checkbox } from "./checkbox";
 import { MoonLoader } from "react-spinners";
-import { Suggestion } from "./suggestions";
+import { Suggestion } from "../componets/suggestions";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
 export function Input({ toggleScoreBadge, fn, final_score }: any) {
@@ -68,7 +68,7 @@ export function Input({ toggleScoreBadge, fn, final_score }: any) {
       const geo_json = await geo_response.json();
       setGeo_data(geo_json);
     } catch (error) {
-      alert("Cap Score not foun");
+      alert("Cap Score not found");
       console.error(error);
     } finally {
       setIsLoading(false);
