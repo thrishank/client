@@ -7,7 +7,7 @@ import { useKurbilScore } from "./componets/kurbilScore";
 
 function App() {
   const [scoreBadgeVisible, setScoreBadgeVisible] = useState(false);
-  const { kurbilScore } = useKurbilScore();
+  const { kurbilScore, setKurbilScore } = useKurbilScore();
 
   const toggleScoreBadge = () => {
     setScoreBadgeVisible(!scoreBadgeVisible);
@@ -20,7 +20,7 @@ function App() {
       <div className={scoreBadgeVisible ? "bg-gray-300" : ""}>
         <Navbar />
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <LeftText toggleScoreBadge={toggleScoreBadge} />
+          <LeftText toggleScoreBadge={toggleScoreBadge} setKurbilScore={setKurbilScore}  kurbilScore={kurbilScore}/>
           <Right />
         </div>
         {scoreBadgeVisible && (
