@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
 import { Score } from "./score";
 import { Checkbox } from "./checkbox";
-import { BeatLoader, MoonLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
 import { useKurbilScore } from "./kurbilScore";
+import { Suggestion } from "./suggestions";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
-var final_Email = ""; // To store the email data
 export function Input({ toggleScoreBadge }: any) {
   const { kurbilScore, setKurbilScore } = useKurbilScore();
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(true);
+  const [user_address, setUser_address] = useState({
+    address: "",
+    city: "",
+    cityAlias: "",
+    latitude: 0,
+    linkedEntityId: "",
+    longitude: 0,
+    name: "",
+    propertyCount: 1,
+    state: "",
+    type: "",
+    uspsVerified: true,
+    zip: "",
+    _id: "",
+  });
   const [valid_address, setValid_address] = useState(false);
-  const [placeholder, setPlaceholder] = useState("Enter valid email");
-  const [inputType, setInputType] = useState("email");
   const [button_text, setButton_text] = useState("NEXT");
   const [score, setScore] = useState(false);
   const [showCheckbox, setShowCheckbox] = useState(true);
@@ -45,12 +58,14 @@ export function Input({ toggleScoreBadge }: any) {
       setIsLoading(true);
       const cap_response = await fetch(
         backend_url +
-          `/investibility/cap_score?address=${encodeURIComponent(email)}`
+          `/investibility/cap_score?address=${encodeURIComponent(
+            user_address.name
+          )}`
       );
       const jsonData = await cap_response.json();
       setCap_score(jsonData.cap_score.error ? 0 : jsonData.cap_score);
       const geo_response = await fetch(
-        backend_url + `/geo_id?address=${encodeURIComponent(email)}`
+        backend_url + `/geo_id?address=${encodeURIComponent(user_address.name)}`
       );
       const geo_json = await geo_response.json();
       setGeo_data(geo_json);
@@ -107,13 +122,13 @@ export function Input({ toggleScoreBadge }: any) {
         try {
           const kurbil_response = await fetch(
             backend_url +
-              `/investibility/?address=${encodeURIComponent(email)}&city=${
-                email.split(",")[1]
-              }&state=${email.split(",")[2].split(" ")[1]}&zip=${
-                email.split(",")[2].split(" ")[2]
+              `/investibility/?address=${encodeURIComponent(
+                user_address.name
+              )}&city=${user_address.city}&state=${user_address.state}&zip=${
+                user_address.zip
               }&latitude=${geo_data.latitude}&longitude=${
                 geo_data.longitude
-              }&crime_rate=${crime_score}&school_rate=${school_score}&nsfr=${nsfr_score}&rsfr=${rfsr_score}&cap_rate=${cap_score}&email=${final_Email}`
+              }&crime_rate=${crime_score}&school_rate=${school_score}&nsfr=${nsfr_score}&rsfr=${rfsr_score}&cap_rate=${cap_score}&email=${email}`
           );
           const krubil_json = await kurbil_response.json();
           setKurbilScore(krubil_json.score);
@@ -126,13 +141,9 @@ export function Input({ toggleScoreBadge }: any) {
     }
   }, [nsfr_score, rfsr_score, crime_score, school_score]);
 
-  const address = () => {
+  const btn_function = () => {
     if (isEmail && isChecked) {
-      setPlaceholder("Start typing to select the address");
-      setInputType("text");
       setButton_text("CALUCULATE SCORE");
-      final_Email = email;
-      setEmail("");
       setValid_address(true);
       setShowCheckbox(false);
     }
@@ -147,16 +158,23 @@ export function Input({ toggleScoreBadge }: any) {
       <div className="flex">
         <div>
           <div className="flex relative">
-            <input
-              type={inputType}
-              className={`bg-[#FCFAF5] block w-full border ${
-                isEmail ? "border-green-500" : "border-red-500"
-              } text-lg rounded-full shadow px-6 font-medium py-3 w-96 pr-12`}
-              value={email}
-              placeholder={placeholder}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            {!valid_address && (
+              <input
+                type={"text"}
+                className={`bg-[#FCFAF5] block w-full border ${
+                  isEmail ? "border-green-500" : "border-red-500"
+                } text-lg rounded-full shadow px-6 font-medium py-3 w-96 pr-12`}
+                value={email}
+                placeholder={"Enter valid email"}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            )}
+            {valid_address && (
+              <div className="bg-[#FCFAF5]  w-96 rounded-full">
+                <Suggestion onClick={setUser_address} />
+              </div>
+            )}
             {isEmail ? (
               <span className="absolute inset-y-0 right-0 pr-3 flex items-center">
                 <svg
@@ -218,7 +236,7 @@ export function Input({ toggleScoreBadge }: any) {
             ) : null}
             <button
               className="px-6 mx-4 rounded-full bg-[#D9A831] font-bold cursor-pointer relative z-10"
-              onClick={address}
+              onClick={btn_function}
             >
               {button_text}
             </button>
