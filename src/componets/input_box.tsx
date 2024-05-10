@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { Score } from "./score";
 import { Checkbox } from "./checkbox";
 import { BeatLoader } from "react-spinners";
-import { useScoreBadge } from "../hooks/useScoreBadge";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
-export function Input({ toggleScoreBadge }) {
+export function Input({ toggleScoreBadge }: any) {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(true);
   const [valid_address, setValid_address] = useState(false);

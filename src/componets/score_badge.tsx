@@ -1,5 +1,5 @@
 import { Social_links } from "./social";
-export function Scorebadge({handleClose}) {
+export function Scorebadge({ handleClose }: any) {
   const handleBadgeCloseClick = () => {
     handleClose(); // Call the function received from props to close Scorebadge
   };
@@ -8,7 +8,10 @@ export function Scorebadge({handleClose}) {
       <div className="text-center text-3xl bg-[#F9F1DE] py-3 rounded-t-xl">
         Kurbli Score Badge
       </div>
-      <button className="absolute top-2 right-2 text-xl" onClick={handleBadgeCloseClick}>
+      <button
+        className="absolute top-2 right-2 text-xl cursor-pointer"
+        onClick={handleBadgeCloseClick}
+      >
         &times;
       </button>
       <div className="flex flex-col justify-center items-center">
