@@ -1,18 +1,19 @@
 export function Right() {
   return (
     <div className="bg-black">
-      <div>
-        <img className="" src="/home.jpeg" height="697px" width="1200px" />
+      <div className="bg-white">
+        <img className="" src="/home.png" height="600px" width="500px" />
       </div>
-      <div className="text-2xl font-semibold text-gray-300 m-2 p-4">
+
+      <div className="text-2xl font-semibold text-gray-300 m-2 p-2">
         What is Krubli's real-time scoring system?
       </div>
-      <div className="text-gray-300 m-2 p-4">
+      <div className="text-gray-300 m-2 p-2">
         Krubli's real-time scoring system is a tool designed for homeowners to
         assess how applealing their property is to potenial investors based on
         various factors
       </div>
-      <div className="text-2xl font-semibold text-gray-300 m-2 p-4">
+      <div className="text-2xl font-semibold text-gray-300 m-2 p-2">
         What we provide
       </div>
       <div className="flex p-2 m-2">
