@@ -72,8 +72,8 @@ export function ScoreBadge({ handleClose, score }: Props) {
         <meta property="og:image:height" content="257" />
       </Helmet>
       <div className="text-center text-3xl bg-[#F9F1DE] py-3 px-4">
-        <span className="block">Kurbli Score Badge</span>
-        <button className="absolute top-2 right-2 text-2xl" onClick={handleBadgeCloseClick}>&times;</button>
+        <span className="">Kurbli Score Badge</span>
+        <button className="relative left-28 text-2xl" onClick={handleBadgeCloseClick}>&times;</button>
       </div>
       <div className="flex flex-col items-center p-4">
         <canvas ref={canvasRef} width="300" height="257.38" className="mb-4"></canvas>
