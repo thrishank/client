@@ -1,9 +1,9 @@
-import { Navbar } from "./componets/navbar";
+import { Navbar } from "./UI/navbar";
 import { Right } from "./pages/right";
 import { LeftText } from "./pages/left";
-import { Scorebadge } from "./componets/score_badge";
+import { ScoreBadge } from "./UI/score_badge";
 import { useState } from "react";
-import { useKurbilScore } from "./componets/kurbilScore";
+import { useKurbilScore } from "./components/kurbilScore";
 
 function App() {
   const [scoreBadgeVisible, setScoreBadgeVisible] = useState(false);
@@ -20,12 +20,16 @@ function App() {
       <div className={scoreBadgeVisible ? "bg-gray-300" : ""}>
         <Navbar />
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <LeftText toggleScoreBadge={toggleScoreBadge} setKurbilScore={setKurbilScore}  kurbilScore={kurbilScore}/>
+          <LeftText
+            toggleScoreBadge={toggleScoreBadge}
+            setKurbilScore={setKurbilScore}
+            kurbilScore={kurbilScore}
+          />
           <Right />
         </div>
         {scoreBadgeVisible && (
           <div className="flex items-center justify-center absolute top-0 w-full h-full z-50">
-            <Scorebadge handleClose={hideScoreBadge} score={kurbilScore} />
+            <ScoreBadge handleClose={hideScoreBadge} score={kurbilScore} />
           </div>
         )}
       </div>
