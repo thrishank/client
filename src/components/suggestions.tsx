@@ -8,7 +8,10 @@ export function Suggestion({ onClick }: any) {
     {},
   ];
 
-
+  const handleError = (e: any) => {
+    // Handle error as you want
+    console.log("Error while searching: ", e);
+  };
 
   const onSelect = (data: any) => {
     onClick(data);
