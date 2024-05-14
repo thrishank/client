@@ -4,6 +4,8 @@ export function LeftText({
   toggleScoreBadge,
   setKurbilScore,
   kurbilScore,
+  setIsLoading,
+  isLoading
 }: any) {
   return (
     <div className="flex flex-col items-start justify-start p-4 m-4 sm:p-10 sm:m-10 overflow-hidden">
@@ -19,6 +21,8 @@ export function LeftText({
         toggleScoreBadge={toggleScoreBadge}
         fn={setKurbilScore}
         final_score={kurbilScore}
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
       />
     </div>
   );
