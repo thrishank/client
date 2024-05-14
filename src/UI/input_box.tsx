@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { Score } from "../components/score";
 import { Checkbox } from "./checkbox";
-import { MoonLoader } from "react-spinners";
 import { Suggestion } from "../components/suggestions";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
