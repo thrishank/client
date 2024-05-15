@@ -28,7 +28,9 @@ function App() {
             setIsLoading={setIsLoading}
             isLoading={isLoading}
           />
-          <Right />
+          <Right
+            isLoading={isLoading}
+          />
         </div>
 
         {scoreBadgeVisible && (

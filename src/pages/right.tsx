@@ -1,9 +1,19 @@
-export function Right() {
+
+export function Right({
+  isLoading,
+}: any) {
   return (
     <div className="bg-black flex flex-col-reverse md:flex-col">
-      <div className="bg-white">
-        <img className="" src="/home.png" height="600px" width="1200px" />
-      </div>
+      {!isLoading && (
+        <div className="bg-white">
+          <img className="" src="/home.png" height="600px" width="1200px" />
+        </div>
+      )}
+      {isLoading && (
+        <div className="bg-white">
+          <img className="" src="/homeLoading.svg" height="600px" width="1200px" />
+        </div>
+      )}
       <div>
 
         <div className="text-2xl font-semibold text-gray-300 m-2 p-2">
