@@ -138,87 +138,90 @@ useEffect(() => {
       <div className="">
         <div className="">
           <div className="grid grid-cols-1 md:grid-cols-10 gap-3">
-            <div className="md:col-span-6 ">
-              {!valid_address && !valid_address && (
-                <input
-                  type={"text"}
-                  className={`bg-[#FCFAF5] block w-full border ${
-                    isEmail ? "border-green-500" : "border-red-500"
-                  } text-lg rounded-full shadow px-6 font-medium py-3 w-96`}
-                  value={email}
-                  placeholder={"Enter valid email"}
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              )}
-              {valid_address && (
-                <div className="my-2 w-full bg-[#f1f1f1] border-3 rounded-sm text-lg">
-                  <Suggestion onClick={setUser_address} />
-                </div>
-              )}
-              {isEmail ? (
-                <span className="relative bottom-9 left-28 pr-3 flex items-center justify-center">
-                  <svg
-                    width="250px"
-                    height="15px"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      <g id="Warning / Circle_Check">
-                        <path
-                          id="Vector"
-                          d="M15 10L11 14L9 12M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
-                          stroke="green"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>
+            <div className="md:col-span-6">
+              <div className="grid grid-cols-11">
+                {!valid_address && !valid_address && (
+                  <input
+                    type={"text"}
+                    className={`bg-[#FCFAF5] block m-1 w-[78vw] md:m-0 md:w-full border col-span-10 ${
+                      isEmail ? "border-green-500" : "border-red-500"
+                    } text-lg rounded-full shadow px-6 font-medium py-3 `}
+                    value={email}
+                    placeholder={"Enter valid email"}
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                )}
+                {valid_address && (
+                  <div className="m-2 md:w-full w-[80vw] md:col-span-10 bg-[#f1f1f1] border-3 rounded-sm text-lg">
+                    <Suggestion onClick={setUser_address} />
+                  </div>
+                )}
+
+                {button_text=="NEXT" && isEmail ? (
+                  <span className="relative md:col-span-1 right-8 pr-3 flex items-center justify-center">
+                    <svg
+                      width="250px"
+                      height="15px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <g id="Warning / Circle_Check">
+                          <path
+                            id="Vector"
+                            d="M15 10L11 14L9 12M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
+                            stroke="green"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
+                        </g>
                       </g>
-                    </g>
-                  </svg>
-                </span>
-              ) : email.length > 0 && !isEmail && !valid_address ? (
-                <span className="relative bottom-9 left-28 pr-3 flex items-center">
-                  <svg
-                    width="250px"
-                    height="15px"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    // style={{ marginTop: "-25px" }}
-                  >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      <g id="Warning / Circle_Check">
-                        <path
-                          d="M12 8H12.01M12 11V16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                          stroke="red"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>
+                    </svg>
+                  </span>
+                ) : button_text=="NEXT" && email.length > 0 && !isEmail && !valid_address ? (
+                  <span className="relative  md:col-span-1 pr-3 right-8 flex items-center">
+                    <svg
+                      width="250px"
+                      height="15px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      // style={{ marginTop: "-25px" }}
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <g id="Warning / Circle_Check">
+                          <path
+                            d="M12 8H12.01M12 11V16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                            stroke="red"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></path>
+                        </g>
                       </g>
-                    </g>
-                  </svg>
-                </span>
-              ) : null}
+                    </svg>
+                  </span>
+                ) : null}
+              </div>
             </div>
 
             <button
-              className="border md:col-span-4 bg-[#d9a831] h-14 py-3 rounded-full shadow font-medium z-10"
+              className="border w-[80vw] md:w-full md:col-span-4 col-span-1 bg-[#d9a831] h-14  px-2 rounded-full shadow font-medium z-10"
               onClick={btn_function}
             >
               {button_text}
