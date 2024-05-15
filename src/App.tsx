@@ -7,6 +7,7 @@ import { useKurbilScore } from "./components/kurbilScore";
 import MoonLoader from "react-spinners/MoonLoader";
 
 
+
 function App() {
   const [scoreBadgeVisible, setScoreBadgeVisible] = useState(false);
   const { kurbilScore, setKurbilScore } = useKurbilScore();
