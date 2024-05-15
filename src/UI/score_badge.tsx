@@ -30,7 +30,6 @@ export function ScoreBadge({ handleClose, score }: Props) {
               const url = URL.createObjectURL(blob);
               setImageURL(url);
               setImageReady(true); // Image is ready to be shared
-              URL.revokeObjectURL(url); // Clean up the object URL
             }
           }, 'image/png');
         };
@@ -58,7 +57,6 @@ export function ScoreBadge({ handleClose, score }: Props) {
     }
   };
 
-    handleClose();
   return (
     <div className="rounded-xl bg-white shadow-lg overflow-hidden">
       <Helmet>
@@ -73,14 +71,14 @@ export function ScoreBadge({ handleClose, score }: Props) {
       </Helmet>
       <div className="text-center text-3xl bg-[#F9F1DE] py-3 px-4">
         <span className="">Kurbli Score Badge</span>
-        <button className="relative left-28 text-2xl" onClick={handleBadgeCloseClick}>&times;</button>
+        <button className="relative md:left-28 left-10 align-top text-2xl" onClick={handleBadgeCloseClick}>&times;</button>
       </div>
       <div className="flex flex-col items-center p-4">
         <canvas ref={canvasRef} width="300" height="257.38" className="mb-4"></canvas>
         <p className="px-4 text-lg">
           Download or share your property score badge with your circle
         </p>
-        {imageReady && <SocialLinks canvasRef={canvasRef} />}
+        {imageReady && <SocialLinks imageURL={imageURL} />}
         <button
           className="px-6 py-3 my-3 mx-4 rounded-full bg-[#D9A831] font-bold cursor-pointer relative z-10"
           onClick={handleDownloadBadge}
