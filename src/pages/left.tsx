@@ -10,12 +10,13 @@ export function LeftText({
 }: any) {
   const [score_page, setScore_page] = useState(false);
 
-  setInterval(() => {
+  const intervalId = setInterval(() => {
     const check = document.getElementsByClassName("check");
     if (check[0]) {
       setScore_page(true);
+      clearInterval(intervalId);
     }
-  }, 5000);
+  }, 1000);
   return (
     <div className="flex flex-col items-start justify-start p-4 m-4 sm:p-10 sm:m-10 overflow-hidden">
       {!score_page && (
