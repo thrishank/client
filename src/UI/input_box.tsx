@@ -176,7 +176,6 @@ export function Input({
                 {valid_address && (
                   <div className="m-2 md:w-full w-[80vw] md:col-span-10 bg-[#f1f1f1] border-3 rounded-sm text-lg">
                     <Suggestion onClick={setUser_address} />
-                    <div className="check"></div>
                   </div>
                 )}
 
@@ -266,6 +265,7 @@ export function Input({
 
       {score && !isLoading && (
         <>
+          <div className="check"></div>
           <div className=" p-2 flex flex-col items-center justify-center">
             <div className="grid grid-cols-1 gap-2">
               <h1 className="font-semibold text-4xl text-center">
