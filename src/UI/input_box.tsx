@@ -4,7 +4,13 @@ import { Suggestion } from "../components/suggestions";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
 
-export function Input({ toggleScoreBadge, fn, final_score,setIsLoading,isLoading}: any) {
+export function Input({
+  toggleScoreBadge,
+  fn,
+  final_score,
+  setIsLoading,
+  isLoading,
+}: any) {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(true);
   const [user_address, setUser_address] = useState({
@@ -40,7 +46,6 @@ export function Input({ toggleScoreBadge, fn, final_score,setIsLoading,isLoading
     latitude: "",
   });
 
-
   const handleScoreBadgeClick = () => {
     toggleScoreBadge();
   };
@@ -69,57 +74,73 @@ export function Input({ toggleScoreBadge, fn, final_score,setIsLoading,isLoading
   };
 
   useEffect(() => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  setIsEmail(emailRegex.test(email));
-}, [email]);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsEmail(emailRegex.test(email));
+  }, [email]);
 
-    useEffect(() => {
-  if (!geo_data.geo_id) return;
+  useEffect(() => {
+    if (!geo_data.geo_id) return;
 
-  const fetch_other_data = async () => {
-    setIsLoading(true);
-    try {
-      const urls = [
-        `${backend_url}/investibility/crime_score?geo_id=${geo_data.geo_id}`,
-        `${backend_url}/investibility/nsfr_score?latitude=${geo_data.latitude}&longitude=${geo_data.longitude}`,
-        `${backend_url}/investibility/rfsr_score?latitude=${geo_data.latitude}&longitude=${geo_data.longitude}`,
-        `${backend_url}/investibility/school_score?geo_id=${geo_data.geo_id}`
-      ];
-      const responses = await Promise.all(urls.map(url => fetch(url)));
-      const jsonResponses = await Promise.all(responses.map(res => res.json()));
+    const fetch_other_data = async () => {
+      setIsLoading(true);
+      try {
+        const urls = [
+          `${backend_url}/investibility/crime_score?geo_id=${geo_data.geo_id}`,
+          `${backend_url}/investibility/nsfr_score?latitude=${geo_data.latitude}&longitude=${geo_data.longitude}`,
+          `${backend_url}/investibility/rfsr_score?latitude=${geo_data.latitude}&longitude=${geo_data.longitude}`,
+          `${backend_url}/investibility/school_score?geo_id=${geo_data.geo_id}`,
+        ];
+        const responses = await Promise.all(urls.map((url) => fetch(url)));
+        const jsonResponses = await Promise.all(
+          responses.map((res) => res.json())
+        );
 
-      setCrime_score(jsonResponses[0].crime_score);
-      setNsfr_score(jsonResponses[1].n_sfr_score);
-      setRfsr_score(jsonResponses[2].r_sfr_score);
-      setSchool_score(jsonResponses[3].school_score);
-    } catch (error) {
-      alert("Error fetching data");
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+        setCrime_score(jsonResponses[0].crime_score);
+        setNsfr_score(jsonResponses[1].n_sfr_score);
+        setRfsr_score(jsonResponses[2].r_sfr_score);
+        setSchool_score(jsonResponses[3].school_score);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  fetch_other_data();
-}, [geo_data.geo_id, backend_url, geo_data.latitude, geo_data.longitude]);
+    fetch_other_data();
+  }, [geo_data.geo_id, backend_url, geo_data.latitude, geo_data.longitude]);
 
-useEffect(() => {
-  if (!(nsfr_score && rfsr_score && crime_score && school_score)) return;
+  useEffect(() => {
+    if (!(nsfr_score && rfsr_score && crime_score && school_score)) return;
 
-  const fetch_kurbil_score = async () => {
-    try {
-      const url = `${backend_url}/investibility/?address=${encodeURIComponent(user_address.name)}&city=${user_address.city}&state=${user_address.state}&zip=${user_address.zip}&latitude=${geo_data.latitude}&longitude=${geo_data.longitude}&crime_rate=${crime_score}&school_rate=${school_score}&nsfr=${nsfr_score}&rsfr=${rfsr_score}&cap_rate=${cap_score}&email=${email}`;
-      const response = await fetch(url);
-      const krubil_json = await response.json();
-      fn(krubil_json.score);
-    } catch (error) {
-      console.error("Error fetching the kurbil score", error);
-    }
-  };
+    const fetch_kurbil_score = async () => {
+      try {
+        const url = `${backend_url}/investibility/?address=${encodeURIComponent(
+          user_address.name
+        )}&city=${user_address.city}&state=${user_address.state}&zip=${
+          user_address.zip
+        }&latitude=${geo_data.latitude}&longitude=${
+          geo_data.longitude
+        }&crime_rate=${crime_score}&school_rate=${school_score}&nsfr=${nsfr_score}&rsfr=${rfsr_score}&cap_rate=${cap_score}&email=${email}`;
+        const response = await fetch(url);
+        const krubil_json = await response.json();
+        fn(krubil_json.score);
+      } catch (error) {
+        console.error("Error fetching the kurbil score", error);
+      }
+    };
 
-  fetch_kurbil_score();
-}, [nsfr_score, rfsr_score, crime_score, school_score, backend_url, user_address, geo_data, cap_score, email]);
-
+    fetch_kurbil_score();
+  }, [
+    nsfr_score,
+    rfsr_score,
+    crime_score,
+    school_score,
+    backend_url,
+    user_address,
+    geo_data,
+    cap_score,
+    email,
+  ]);
 
   const btn_function = () => {
     if (isEmail && isChecked) {
@@ -155,10 +176,11 @@ useEffect(() => {
                 {valid_address && (
                   <div className="m-2 md:w-full w-[80vw] md:col-span-10 bg-[#f1f1f1] border-3 rounded-sm text-lg">
                     <Suggestion onClick={setUser_address} />
+                    <div className="check"></div>
                   </div>
                 )}
 
-                {button_text=="NEXT" && isEmail ? (
+                {button_text == "NEXT" && isEmail ? (
                   <span className="relative md:col-span-1 right-8 pr-3 flex items-center justify-center">
                     <svg
                       width="250px"
@@ -187,7 +209,10 @@ useEffect(() => {
                       </g>
                     </svg>
                   </span>
-                ) : button_text=="NEXT" && email.length > 0 && !isEmail && !valid_address ? (
+                ) : button_text == "NEXT" &&
+                  email.length > 0 &&
+                  !isEmail &&
+                  !valid_address ? (
                   <span className="relative  md:col-span-1 pr-3 right-8 flex items-center">
                     <svg
                       width="250px"
@@ -228,12 +253,11 @@ useEffect(() => {
             </button>
           </div>
           <div className="w-full">
-
             {valid_address ||
               (!isEmail && email.trim() != "" && (
-            <p className="text-[#FF7575] font-medium px-4">
-              Please enter a valid email address
-            </p>
+                <p className="text-[#FF7575] font-medium px-4">
+                  Please enter a valid email address
+                </p>
               ))}
             {showCheckbox && <Checkbox setIsChecked={setIsChecked} />}
           </div>
@@ -244,9 +268,19 @@ useEffect(() => {
         <>
           <div className=" p-2 flex flex-col items-center justify-center">
             <div className="grid grid-cols-1 gap-2">
-              <h1 className="font-semibold text-4xl text-center">Congratulations!</h1>
-              <p className="text-center">Here's your kurbli score. Investors are looking for properties just like yours.</p>
-              <p className="text-center"><span><a>Click Here</a></span> to find out how to connect with investors today.</p>
+              <h1 className="font-semibold text-4xl text-center">
+                Congratulations!
+              </h1>
+              <p className="text-center">
+                Here's your kurbli score. Investors are looking for properties
+                just like yours.
+              </p>
+              <p className="text-center">
+                <span>
+                  <a>Click Here</a>
+                </span>{" "}
+                to find out how to connect with investors today.
+              </p>
             </div>
             <div className="flex flex-wrap justify-start mt-4">
               <div
@@ -300,7 +334,6 @@ useEffect(() => {
                 </svg>
               </div>
             </div>
-
           </div>
         </>
       )}
