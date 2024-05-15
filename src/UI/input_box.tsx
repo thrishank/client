@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Checkbox } from "./checkbox";
 import { Suggestion } from "../components/suggestions";
+import { MoonLoader } from "react-spinners";
 
 const backend_url = `https://1tuwbh5e46.execute-api.ap-southeast-2.amazonaws.com/test`;
 
@@ -174,7 +175,7 @@ export function Input({
                   />
                 )}
                 {valid_address && (
-                  <div className="m-2 md:w-full w-[80vw] md:col-span-10 bg-[#f1f1f1] border-3 rounded-sm text-lg">
+                  <div className="m-2 md:w-full w-[80vw] md:col-span-10 bg-[#FCFAF5] block border-3 rounded-full text-lg shadow font-medium">
                     <Suggestion onClick={setUser_address} />
                   </div>
                 )}
@@ -262,7 +263,13 @@ export function Input({
           </div>
         </div>
       </div>
-
+      {isLoading && (
+        <div className="flex justify-center mt-4 py-8 flex-col items-center">
+          <MoonLoader color="#D9A831" size={200} />
+          {""}
+          <p>Caluculating your kurbli score...</p>
+        </div>
+      )}
       {score && !isLoading && (
         <>
           <div className="check"></div>
